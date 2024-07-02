@@ -32,7 +32,7 @@ app.get("/usuario/:id", (req, res) => {
     try {
         console.log("Rota: usuario/" + req.params.id);
         client.query(
-            "SELECT * FROM Usuarios WHERE id = $1", [req.params.id],
+            "SELECT * FROM entrega WHERE id = $1", [req.params.id],
             (err, result) => {
                 if (err) {
                     return console.error("Erro ao executar a qry de SELECT id", err);
@@ -50,7 +50,7 @@ app.post("/usuario", (req, res) => {
         console.log("Alguém enviou um post com os dados:", req.body);
         const { cpf, nome, cep, numero, complemento, produto } = req.body;
         client.query(
-            "INSERT INTO Usuarios (cpf, nome, cep, numero, complemento, produto) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ", [cpf, nome, cep, numero, complemento, produto],
+            "INSERT INTO entrega (cpf, nome, cep, numero, complemento, produto) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ", [cpf, nome, cep, numero, complemento, produto],
             (err, result) => {
                 if (err) {
                     return console.error("Erro ao executar a qry de INSERT", err);
@@ -72,7 +72,7 @@ app.put("/usuario/:id", (req, res) => {
         const id = req.params.id;
         const { cpf, nome, cep, numero, complemento, produto } = req.body;
         client.query(
-            "UPDATE Usuarios SET cpf=$1, nome=$2, cep=$3, numero=$4, complemento=$5, produto=$6 WHERE id =$7 ",
+            "UPDATE entrega SET cpf=$1, nome=$2, cep=$3, numero=$4, complemento=$5, produto=$6 WHERE id =$7 ",
             [cpf, nome, cep, numero, complemento, produto, id],
             function (err, result) {
                 if (err) {
