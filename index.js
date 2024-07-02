@@ -43,14 +43,14 @@ app.get("/usuario", (req, res) => {
     }
 });
 
-app.get("/usuario/:id", (req, res) => {
+app.get("/usuario/:cpf", (req, res) => {
     try {
         console.log("Rota: usuario/" + req.params.id);
         client.query(
-            "SELECT * FROM entrega WHERE id = $1", [req.params.id],
+            "SELECT * FROM entrega WHERE cpf = $1", [req.params.cpf],
             (err, result) => {
                 if (err) {
-                    return console.error("Erro ao executar a qry de SELECT id", err);
+                    return console.error("Erro ao executar a qry de SELECT cpf", err);
                 }
                 res.send(result.rows);
             }
